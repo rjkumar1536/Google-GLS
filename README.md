@@ -21,7 +21,9 @@ Once the guide has ended, to run the guide again, please do the 5th and 6th step
 <img src="dock-separate-window.png"/>
 
 
-## Demo
+## Demo :
+
+Minified Guided Learning Solution
 
 ![](2021-02-01_09-36-48.gif)
 
