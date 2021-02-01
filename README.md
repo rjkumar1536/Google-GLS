@@ -23,5 +23,5 @@ Once the guide has ended, to run the guide again, please do the 5th and 6th step
 
 ## Demo
 
-<video src = "2021-02-01_09-36-48.gif" />
+![](2021-02-01_09-36-48.gif)
 
