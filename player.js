@@ -134,6 +134,7 @@ __5szm2kaj = function (data) {
     let l = 0;
     let t = 0;
     responseObject = data;
+    console.log(data)
     steps = responseObject.data.structure.steps;
     currentStep = steps[stepIndex];
     element = $(currentStep.action.selector)[0];
