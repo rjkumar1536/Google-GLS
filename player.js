@@ -2,6 +2,13 @@ var responseObject;
 var __5szm2kaj;
 var steps;
 var element;
+var content;
+var placement;
+var pos;
+var currentStep;
+var stepIndex = 0;
+var tooltipWidth = 286;
+var tooltipHeight = 57;
 var height = 0;
 var width = 0;
 var t;
@@ -11,7 +18,7 @@ var link;
 var gls;
 
 
-// installing jquer
+// installing jquery
 script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
 script.type = 'text/javascript';
@@ -74,8 +81,57 @@ function createToolTip (content, left, top) {
     return sttipDiv;
 }
 
-// callback function
+
+function placeToolTip(){
+    content = currentStep.action.contents['#content'];
+    placement = currentStep.action.placement;
+
+    $(element).css('border', '1px black solid');
+
+    if (stepIndex == 3) {
+        placement = 'bottom';
+    }
+
+    pos = $(element).offset();
+    height = $(element).height();
+    width = $(element).width();
+
+    let pt = parseInt($(element).css('padding-top'));
+    let pb = parseInt($(element).css('padding-bottom'));
+    let pl = parseInt($(element).css('padding-left'));
+    let pr = parseInt($(element).css('padding-right'));
+
+    t = pos.top + pt - pb;
+    l = pos.left + pl + pr;
+
+    if (placement === 'top') t = t - tooltipHeight;
+    if (placement === 'right') l = l + width;
+    if (placement === 'bottom') t = t + height;
+    if (placement === 'left') l = l - tooltipWidth;
+
+    if (stepIndex == 3) {
+        l = window.innerWidth - tooltipWidth - 17;
+    }
+
+    element.parentNode.appendChild(createToolTip (content, l + 'px', t + 'px'));
+    if (currentStep.followers.length > 0) stepIndex = currentStep.followers[0].next;
+    else stepIndex = -1;
+}
+
+// on click of next button on the tooltip
+function goNext() {
+    element.parentNode.removeChild(document.getElementById('tooltip' + currentStep.id));
+    $(element).css('border', '');
+    if (parseInt(stepIndex) < 0) return;
+    currentStep = steps.find(e => e.id == stepIndex);
+    element = $(currentStep.action.selector)[$(currentStep.action.selector).length - 1];
+    placeToolTip();
+}
+
+
+// jsonp initial function that will be called once response is recieved
 __5szm2kaj = function (data) {
+    console.log('tooltip started');
     let l = 0;
     let t = 0;
     responseObject = data;
@@ -83,4 +139,5 @@ __5szm2kaj = function (data) {
     console.log(data);
     currentStep = steps[stepIndex];
     element = $(currentStep.action.selector)[0];
+    placeToolTip();
 }
