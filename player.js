@@ -131,12 +131,10 @@ function goNext() {
 
 // jsonp initial function that will be called once response is recieved
 __5szm2kaj = function (data) {
-    console.log('tooltip started');
     let l = 0;
     let t = 0;
     responseObject = data;
     steps = responseObject.data.structure.steps;
-    console.log(data);
     currentStep = steps[stepIndex];
     element = $(currentStep.action.selector)[0];
     placeToolTip();
